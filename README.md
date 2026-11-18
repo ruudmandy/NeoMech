@@ -23,7 +23,11 @@ While simulating:
 
 ## Installation
 
-See: https://github.com/anomek/MyDalamudPlugins
+In Dalamud Settings (`/xlsettings`) → **Experimental** → **Custom Plugin Repositories**, add:
+```
+https://raw.githubusercontent.com/ruudmandy/MyDalamudPlugins/master/pluginmaster.json
+```
+*(Forked plugin repo URL; use `https://raw.githubusercontent.com/anomek/MyDalamudPlugins/master/pluginmaster.json` for the original upstream version.)*
 
 ## Beta: Advanced Simulation Resolution
 
