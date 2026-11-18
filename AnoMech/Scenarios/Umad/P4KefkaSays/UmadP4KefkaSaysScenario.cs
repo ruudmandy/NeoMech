@@ -33,6 +33,7 @@ public sealed class UmadP4KefkaSaysScenario : IMultiplayerReplayable
     [
         new UmadP4KefkaSaysAi(UmadP4KefkaSaysAi.GazeLayout.SupportsNorthDpsSouth),
         new UmadP4KefkaSaysAi(UmadP4KefkaSaysAi.GazeLayout.CentreLane),
+        new UmadP4KefkaSaysAi(UmadP4KefkaSaysAi.GazeLayout.YanFlash),
     ];
 
     private UmadP4KefkaSaysState state = null!;

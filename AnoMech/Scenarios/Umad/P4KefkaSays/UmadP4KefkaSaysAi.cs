@@ -36,11 +36,12 @@ namespace AnoMech.Scenarios.Umad.P4KefkaSays;
 // UmadP2ForsakenRinonAiHelper for the fuller pattern.
 public sealed class UmadP4KefkaSaysAi(UmadP4KefkaSaysAi.GazeLayout gazeLayout) : IScenarioAi<UmadP4KefkaSaysState>
 {
-    public enum GazeLayout { CentreLane, SupportsNorthDpsSouth }
+    public enum GazeLayout { CentreLane, SupportsNorthDpsSouth, YanFlash }
 
     public string Name => gazeLayout switch
     {
         GazeLayout.SupportsNorthDpsSouth => "Kefka Says, gazes: supports N / DPS S",
+        GazeLayout.YanFlash => "yan-flash",
         _ => "Kefka Says",
     };
 
@@ -55,7 +56,7 @@ public sealed class UmadP4KefkaSaysAi(UmadP4KefkaSaysAi.GazeLayout gazeLayout) :
         ai.Move(41.5f, () => Stack(SafeSpot(state.Mystery[2])), jitter: 0.8f, arrivalTime: 45.4f);
 
         ai.Move(57.6f, () => FloodOfNaught(state), jitter: 2.5f, arrivalTime: 62.2f);
-        ai.Move(63, () => ResolveElements(state.ElemRoles[0], state.ElemTrue[0]), arrivalTime: 70.5f);
+        ai.Move(63, () => ResolveWave1Elements(state), arrivalTime: 70.5f);
         ScheduleWave1Gaze(ai, state, world);
 
         // Stray Flames: bait the fire stacked in the middle (scenario locks each bait
@@ -118,7 +119,7 @@ public sealed class UmadP4KefkaSaysAi(UmadP4KefkaSaysAi.GazeLayout gazeLayout) :
 
     private void ScheduleWave1Gaze(AiManager ai, UmadP4KefkaSaysState state, SimWorld world)
     {
-        if (gazeLayout == GazeLayout.SupportsNorthDpsSouth)
+        if (gazeLayout is GazeLayout.SupportsNorthDpsSouth or GazeLayout.YanFlash)
         {
             ai.Move(72, () => SupportsNorthAlongThunderEdge(state.Wave1, state.Mystery[3], 0f), jitter: 0, arrivalTime: 76f);
             ai.Move(78.5f, () => SupportsNorthAlongThunderEdge(state.Wave1, state.Mystery[3], GazeFacingStep(state.Wave1True)), jitter: 0);
@@ -130,7 +131,7 @@ public sealed class UmadP4KefkaSaysAi(UmadP4KefkaSaysAi.GazeLayout gazeLayout) :
 
     private void ScheduleWave2Gaze(AiManager ai, UmadP4KefkaSaysState state, SimWorld world)
     {
-        if (gazeLayout == GazeLayout.SupportsNorthDpsSouth)
+        if (gazeLayout is GazeLayout.SupportsNorthDpsSouth or GazeLayout.YanFlash)
         {
             ai.Move(98f, () => SupportsNorthAroundBoss(state.Wave2, 0f), jitter: 0, arrivalTime: 101.5f);
             ai.Move(102.5f, () => SupportsNorthAroundBoss(state.Wave2, GazeFacingStep(state.Wave2True)), jitter: 0);
@@ -281,6 +282,11 @@ public sealed class UmadP4KefkaSaysAi(UmadP4KefkaSaysAi.GazeLayout gazeLayout) :
 
     // Wave-1 elements: no Blizzard live yet, so the 3+1 / 3+1 stack-and-solo split
     // sits on the cardinals (support stack N + solo W, dps stack S + solo E).
+    private IAiMove ResolveWave1Elements(UmadP4KefkaSaysState state) =>
+        gazeLayout == GazeLayout.YanFlash
+            ? ElementFormation(state.ElemRoles[0], state.ElemTrue[0], YanFlashWave1Elements, state.NeoExdeathDirection.Apply)
+            : ResolveElements(state.ElemRoles[0], state.ElemTrue[0]);
+
     private IAiMove ResolveElements(RoleList roleList, bool isTrue) =>
         ElementFormation(roleList, isTrue, ElementCardinals);
 
@@ -331,6 +337,12 @@ public sealed class UmadP4KefkaSaysAi(UmadP4KefkaSaysAi.GazeLayout gazeLayout) :
     {
         new(0f, -12f), new(0f, -12f), new(0f, -12f), new(-12f, 0f),
         new(0f, 12f), new(0f, 12f), new(0f, 12f), new(12f, 0f),
+    };
+
+    private static readonly Vector2?[] YanFlashWave1Elements =
+    {
+        new(0f, -12f), new(0f, -12f), new(0f, -12f), new(10f, -12f),
+        new(0f, 12f), new(0f, 12f), new(0f, 12f), new(10f, 12f),
     };
 
     // Every slot to the same destination.

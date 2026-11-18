@@ -53,6 +53,7 @@ All using default NA pf strats unless noted otherwise:
     - P4 Kefka Says
       - kefkabin
       - kefkabin, gazes: supports N / DPS S _by [Evernow](https://github.com/Evernow)_
+      - yan-flash
     - P5 Flood _by [Evernow](https://github.com/Evernow)_
     - P5 Exaflares _by [Wydox](https://github.com/Wydox)_
     - P5 Celestriad _by [RoarkGit](https://github.com/RoarkGit)_
