@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Dalamud.NET.Sdk/15.0.0">
   <PropertyGroup>
     <AssemblyName>NeoMech</AssemblyName>
     <Authors>Anomek</Authors>
-    <Version>0.5.4.0</Version>
+    <Version>0.5.5.0</Version>
     <Description>Simulate ultimate raid mechanics solo client-side</Description>
     <RootNamespace>AnoMech</RootNamespace>
     <PackageProjectUrl>https://github.com/ruudmandy/NeoMech</PackageProjectUrl>

@@ -1,9 +1,8 @@
 [
   {
     "Author": "Anomek",
-    "Name": "NeoMech",
-    "InternalName": "AnoMech",
-    "AssemblyVersion": "0.5.4.0",
+    "InternalName": "NeoMech",
+    "AssemblyVersion": "0.5.5.0",
     "MinimumDalamudVersion": "15.0.3.5",
     "Description": "Spawns fake party members and bosses client-side so you can practice raid mechanics without a full party.",
     "ApplicableVersion": "any",
@@ -27,10 +26,11 @@
     "IconUrl": "https://raw.githubusercontent.com/ruudmandy/NeoMech/master/images/icon.png",
     "Punchline": "Another FFXIV mechanics simulator. Go to an inn and start practice.",
     "AcceptsFeedback": true,
+    "Name": "NeoMech",
     "DownloadCount": 0,
-    "LastUpdate": 1795019854,
-    "DownloadLinkInstall": "https://github.com/ruudmandy/NeoMech/releases/download/v0.5.4.0/latest.zip",
-    "DownloadLinkUpdate": "https://github.com/ruudmandy/NeoMech/releases/download/v0.5.4.0/latest.zip",
-    "DownloadLinkTesting": "https://github.com/ruudmandy/NeoMech/releases/download/v0.5.4.0/latest.zip"
+    "LastUpdate": 1795024013,
+    "DownloadLinkInstall": "https://github.com/ruudmandy/NeoMech/releases/download/v0.5.5.0/latest.zip",
+    "DownloadLinkUpdate": "https://github.com/ruudmandy/NeoMech/releases/download/v0.5.5.0/latest.zip",
+    "DownloadLinkTesting": "https://github.com/ruudmandy/NeoMech/releases/download/v0.5.5.0/latest.zip"
   }
 ]
