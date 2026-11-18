@@ -200,7 +200,7 @@ public sealed class Game : IDisposable
 
         DiagnosticLog.Warn(
             $"[Game] Kill: {target.Role} died at ({(target as IPositioned)?.Position.X:F1},{(target as IPositioned)?.Position.Z:F1}) -- {cause}");
-        Plugin.ChatGui.Print(new XivChatEntry { Type = XivChatType.SystemMessage, Message = $"[AnoMech] {DescribeName(target)} died: {cause}" });
+        Plugin.ChatGui.Print(new XivChatEntry { Type = XivChatType.SystemMessage, Message = $"[NeoMech] {DescribeName(target)} died: {cause}" });
         run?.OnDeathReported(DescribeName(target), cause);
 
         if (GodMode)

@@ -190,7 +190,7 @@ public sealed class SimWorld : ISimObject, IDisposable
 
     public void Announce(string text)
     {
-        Plugin.ChatGui.Print(new XivChatEntry { Type = XivChatType.SystemMessage, Message = $"[AnoMech] {text}" });
+        Plugin.ChatGui.Print(new XivChatEntry { Type = XivChatType.SystemMessage, Message = $"[NeoMech] {text}" });
         Announced?.Invoke(text);
     }
 

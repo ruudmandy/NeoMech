@@ -65,9 +65,9 @@ jobs:
         shell: pwsh
         run: |
           $zip = Get-ChildItem -Path "AnoMech/bin/Release" -Recurse -Filter "latest.zip" | Select-Object -First 1
-          $manifestFile = Get-ChildItem -Path "AnoMech/bin/Release" -Recurse -Filter "AnoMech.json" | Select-Object -First 1
+          $manifestFile = Get-ChildItem -Path "AnoMech/bin/Release" -Recurse -File | Where-Object { $_.Name -in "NeoMech.json", "AnoMech.json" } | Select-Object -First 1
           if (-not $zip -or -not $manifestFile) {
-            throw "Could not find latest.zip or AnoMech.json under AnoMech/bin/Release"
+            throw "Could not find latest.zip or manifest json under AnoMech/bin/Release"
           }
           Copy-Item $zip.FullName -Destination "latest.zip" -Force
 
@@ -77,6 +77,7 @@ jobs:
           $dlUrl = "https://github.com/$repo/releases/download/v$ver/latest.zip"
           $now = [DateTimeOffset]::UtcNow.ToUnixTimeSeconds()
 
+          $manifest | Add-Member -NotePropertyName "Name" -NotePropertyValue "NeoMech" -Force
           $manifest | Add-Member -NotePropertyName "DownloadCount" -NotePropertyValue 0 -Force
           $manifest | Add-Member -NotePropertyName "LastUpdate" -NotePropertyValue $now -Force
           $manifest | Add-Member -NotePropertyName "DownloadLinkInstall" -NotePropertyValue $dlUrl -Force

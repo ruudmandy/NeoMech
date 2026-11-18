@@ -130,7 +130,7 @@ internal sealed class MultiplayerUi
             ImGui.TextColored(WarnColor, endReason);
     }
 
-    internal const string RelayReadmeUrl = "https://github.com/anomek/AnoMech/blob/master/AnoMech.Relay.Host/README.md";
+    internal const string RelayReadmeUrl = "https://github.com/ruudmandy/NeoMech/blob/master/AnoMech.Relay.Host/README.md";
     private static readonly Vector4 LinkColor = new(0.45f, 0.7f, 1f, 1f);
 
     internal static void DrawLink(string label, string url)
@@ -379,7 +379,7 @@ internal sealed class MultiplayerUi
         if (!mp.IsHost && mp.IsVersionMismatched(mp.Session.HostId))
         {
             var hostBuild = mp.Session.Builds.GetValueOrDefault(mp.Session.HostId);
-            ImGui.TextColored(WarnColor, "⚠ Different AnoMech build than the host -- update before taking a seat.");
+            ImGui.TextColored(WarnColor, "⚠ Different NeoMech build than the host -- update before taking a seat.");
             if (ImGui.IsItemHovered())
                 ImGui.SetTooltip($"Yours: {PluginBuildInfo.Version} ({PluginBuildInfo.ShortChecksum})\nHost: {hostBuild?.Version ?? "?"} ({hostBuild?.ShortChecksum ?? "?"})");
         }

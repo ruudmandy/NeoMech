@@ -880,7 +880,7 @@ public sealed partial class MultiplayerManager : IDisposable
     {
         RunEndReason = reason;
         DiagnosticLog.Warn($"[Multiplayer] Run ended: {reason}");
-        Plugin.ChatGui.PrintError($"[AnoMech] Run ended -- {reason}");
+        Plugin.ChatGui.PrintError($"[NeoMech] Run ended -- {reason}");
         LobbyChanged?.Invoke();
     }
 

@@ -1,11 +1,11 @@
 
-# ![AnoMech](images/icon.png) AnoMech
+# ![NeoMech](images/icon.png) NeoMech
 
 *Another FFXIV mechanics simulator*
 
 ---
  
-Simulate FFXIV raid mechanics client-side for solo practice. Go to any Inn, open the plugin with `/anomech` and start practicing!
+Simulate FFXIV raid mechanics client-side for solo practice. Go to any Inn, open the plugin with `/neomech` and start practicing!
 
 Thanks to improvemnts by [WorstAquaPlayer](https://github.com/WorstAquaPlayer) plugin is quite stable now! No more 
 crashes after training session.
@@ -122,10 +122,10 @@ Thanks for contributors:
 * [Quantumlyy](https://github.com/Quantumlyy) - extra strategies
 * [Linqx](https://github.com/Linqx) - success/failure checkmarks
 
-AnoMech leans heavily on the work of other Dalamud plugins. Huge thanks to their authors!  
+NeoMech leans heavily on the work of other Dalamud plugins. Huge thanks to their authors!  
 Without them, the following would not be possible:
 
-AnoMech's zone changes are built on **Hyperborea**, which served as the baseline for loading a solo duty arena.                                                                                                                                                                                   
+NeoMech's zone changes are built on **Hyperborea**, which served as the baseline for loading a solo duty arena.                                                                                                                                                                                   
 [Evernow](https://github.com/Evernow) has since improved that code and made it safer to use.                                                                                                                                                                                                      
 
 **FFXIV-RaidsRewritten** and **bossmod** were the initial inspiration for the project, though neither is part of the                                                                                                                                                                              

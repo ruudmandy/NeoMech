@@ -179,7 +179,7 @@ public sealed class ScenarioSession
         instance.PlacePlayer();
         Natives.UserActions.OnScenarioStart();
         StartMusic();
-        Plugin.ChatGui.Print(new XivChatEntry { Type = XivChatType.SystemMessage, Message = $"[AnoMech] Starting: {Scenario.FullName()}{(Mode == SessionMode.Local ? " (Solo)" : "")}" });
+        Plugin.ChatGui.Print(new XivChatEntry { Type = XivChatType.SystemMessage, Message = $"[NeoMech] Starting: {Scenario.FullName()}{(Mode == SessionMode.Local ? " (Solo)" : "")}" });
     }
 
     public void Tick(float deltaSeconds)
@@ -230,7 +230,7 @@ public sealed class ScenarioSession
         mechanicFailed = true;
         issues.Add(new RunIssue(elapsed, reason));
         DiagnosticLog.Warn($"[ScenarioSession] Mechanic failed at t={elapsed:F2}: {reason}");
-        Plugin.ChatGui.Print(new XivChatEntry { Type = XivChatType.SystemMessage, Message = $"[AnoMech] Mechanic failed: {reason}" });
+        Plugin.ChatGui.Print(new XivChatEntry { Type = XivChatType.SystemMessage, Message = $"[NeoMech] Mechanic failed: {reason}" });
         MarkMistake();
         MechanicFailed?.Invoke(reason);
         if (freeze) ScheduleFreeze();
@@ -246,7 +246,7 @@ public sealed class ScenarioSession
     private void PrintFailureSummary()
     {
         var lines = string.Join("; ", issues.Select(i => $"{i.Description} ({i.Time:F1}s)"));
-        Plugin.ChatGui.Print(new XivChatEntry { Type = XivChatType.SystemMessage, Message = $"[AnoMech] Run failed: {lines}" });
+        Plugin.ChatGui.Print(new XivChatEntry { Type = XivChatType.SystemMessage, Message = $"[NeoMech] Run failed: {lines}" });
     }
 
     private void PlayMark(uint actionId)
