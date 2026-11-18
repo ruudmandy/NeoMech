@@ -27,7 +27,7 @@ In Dalamud Settings (`/xlsettings`) → **Experimental** → **Custom Plugin Rep
 ```
 https://raw.githubusercontent.com/ruudmandy/NeoMech/master/pluginmaster.json
 ```
-*(Custom plugin repository URL for this fork; open `/xlplugins` after saving to install **AnoMech**.)*
+*(Custom plugin repository URL for this fork; open `/xlplugins` after saving to install **NeoMech**.)*
 
 ## Beta: Advanced Simulation Resolution
 
