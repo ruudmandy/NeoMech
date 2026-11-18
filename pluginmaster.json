@@ -1,0 +1,25 @@
+[
+  {
+    "Author": "Anomek",
+    "Name": "AnoMech",
+    "InternalName": "AnoMech",
+    "AssemblyVersion": "0.5.1.0",
+    "Description": "Simulate ultimate raid mechanics solo client-side",
+    "ApplicableVersion": "any",
+    "RepoUrl": "https://github.com/ruudmandy/NeoMech",
+    "DalamudApiLevel": 15,
+    "LoadRequiredState": 0,
+    "LoadSync": false,
+    "CanUnloadAsync": false,
+    "LoadPriority": 0,
+    "Punchline": "Simulate ultimate raid mechanics solo client-side",
+    "AcceptsFeedback": true,
+    "IsHide": false,
+    "IsTestingExclusive": false,
+    "DownloadCount": 0,
+    "LastUpdate": 1763481600,
+    "DownloadLinkInstall": "https://github.com/ruudmandy/NeoMech/releases/latest/download/latest.zip",
+    "DownloadLinkUpdate": "https://github.com/ruudmandy/NeoMech/releases/latest/download/latest.zip",
+    "DownloadLinkTesting": "https://github.com/ruudmandy/NeoMech/releases/latest/download/latest.zip"
+  }
+]

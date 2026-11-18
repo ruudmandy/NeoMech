@@ -8,20 +8,93 @@ on:
         type: choice
         default: patch
         options:
+          - none
           - major
           - minor
           - patch
           - revision
 
 permissions:
-  contents: write          # lets the reusable workflow create the release + push the bump commit
+  contents: write
 
 jobs:
-  build:
-    uses: anomek/MyDalamudPlugins/.github/workflows/build-plugin.yml@master
-    with:
-      internal_name: AnoMech
-      solution_name: AnoMech
-      version_bump: ${{ inputs.version_bump }}
-    secrets:
-      PAT: ${{ secrets.PAT }}
+  release:
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          ref: master
+
+      - name: Install .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Download Dalamud
+        run: |
+          Invoke-WebRequest -Uri https://goatcorp.github.io/dalamud-distrib/latest.zip -OutFile latest.zip
+          Expand-Archive -Force latest.zip "$env:AppData\XIVLauncher\addon\Hooks\dev"
+
+      - name: Bump version
+        id: version
+        shell: pwsh
+        run: |
+          $csprojPath = "AnoMech/AnoMech.csproj"
+          [xml]$xml = Get-Content $csprojPath
+          $verStr = $xml.Project.PropertyGroup.Version
+          $parts = $verStr.Split('.') | ForEach-Object { [int]$_ }
+          switch ("${{ inputs.version_bump }}") {
+            "major"    { $parts[0]++; $parts[1] = 0; $parts[2] = 0; $parts[3] = 0 }
+            "minor"    { $parts[1]++; $parts[2] = 0; $parts[3] = 0 }
+            "patch"    { $parts[2]++; $parts[3] = 0 }
+            "revision" { $parts[3]++ }
+          }
+          $newVer = $parts -join '.'
+          $xml.Project.PropertyGroup.Version = $newVer
+          $xml.Save((Resolve-Path $csprojPath))
+          "version=$newVer" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          Write-Host "Version: $newVer"
+
+      - name: Build and package plugin
+        run: dotnet build AnoMech/AnoMech.csproj --configuration Release
+
+      - name: Update pluginmaster.json and prepare release asset
+        id: package
+        shell: pwsh
+        run: |
+          $zip = Get-ChildItem -Path "AnoMech/bin/Release" -Recurse -Filter "latest.zip" | Select-Object -First 1
+          $manifestFile = Get-ChildItem -Path "AnoMech/bin/Release" -Recurse -Filter "AnoMech.json" | Select-Object -First 1
+          if (-not $zip -or -not $manifestFile) {
+            throw "Could not find latest.zip or AnoMech.json under AnoMech/bin/Release"
+          }
+          Copy-Item $zip.FullName -Destination "latest.zip" -Force
+
+          $manifest = Get-Content $manifestFile.FullName -Raw | ConvertFrom-Json
+          $ver = "${{ steps.version.outputs.version }}"
+          $repo = "${{ github.repository }}"
+          $dlUrl = "https://github.com/$repo/releases/download/v$ver/latest.zip"
+          $now = [DateTimeOffset]::UtcNow.ToUnixTimeSeconds()
+
+          $manifest | Add-Member -NotePropertyName "DownloadCount" -NotePropertyValue 0 -Force
+          $manifest | Add-Member -NotePropertyName "LastUpdate" -NotePropertyValue $now -Force
+          $manifest | Add-Member -NotePropertyName "DownloadLinkInstall" -NotePropertyValue $dlUrl -Force
+          $manifest | Add-Member -NotePropertyName "DownloadLinkUpdate" -NotePropertyValue $dlUrl -Force
+          $manifest | Add-Member -NotePropertyName "DownloadLinkTesting" -NotePropertyValue $dlUrl -Force
+
+          ConvertTo-Json -InputObject @($manifest) -Depth 10 | Set-Content -Path "pluginmaster.json" -Encoding UTF8
+
+      - name: Commit version bump and pluginmaster.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add AnoMech/AnoMech.csproj pluginmaster.json
+          git commit -m "Release v${{ steps.version.outputs.version }}"
+          git push origin master
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "v${{ steps.version.outputs.version }}" latest.zip --title "v${{ steps.version.outputs.version }}" --notes "Release v${{ steps.version.outputs.version }}"

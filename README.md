@@ -25,9 +25,9 @@ While simulating:
 
 In Dalamud Settings (`/xlsettings`) → **Experimental** → **Custom Plugin Repositories**, add:
 ```
-https://raw.githubusercontent.com/ruudmandy/MyDalamudPlugins/master/pluginmaster.json
+https://raw.githubusercontent.com/ruudmandy/NeoMech/master/pluginmaster.json
 ```
-*(Forked plugin repo URL; use `https://raw.githubusercontent.com/anomek/MyDalamudPlugins/master/pluginmaster.json` for the original upstream version.)*
+*(Custom plugin repository URL for this fork; open `/xlplugins` after saving to install **AnoMech**.)*
 
 ## Beta: Advanced Simulation Resolution
 
